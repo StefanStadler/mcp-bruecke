@@ -10,14 +10,14 @@ Das Plugin startet auf diesem Rechner per `npx` eine Brücke (`mcp-remote`). Sie
 ## Ablauf
 
 1. **Verbindung prüfen.** `list_connect_clients` mit `limit` 3 aufrufen.
-   - Werkzeug nicht vorhanden: Die Brücke startet nicht oder die Anmeldung steht noch aus. Mögliche Gründe: Node 22.15 oder neuer (mit `npx`) fehlt, `npx` kommt beim ersten Start nicht an die npm-Registry, das Zertifikat der internen CA ist im Zertifikatsspeicher nicht vertrauenswürdig oder Node ist zu alt, um ihn zu nutzen oder der Browser-Login wurde nicht abgeschlossen. Dem Nutzer das sagen, den Login im Browser abschließen und Claude neu starten lassen. Hier stoppen.
+   - Werkzeug nicht vorhanden: Die Brücke startet nicht oder die Anmeldung steht noch aus. Mögliche Gründe: Node 20 oder neuer (mit `npx`) fehlt, `npx` kommt beim ersten Start nicht an die npm-Registry, das Zertifikat der internen CA ist im Systemspeicher nicht als vertrauenswürdig eingetragen (Fehler `unable to get local issuer certificate`) oder der Browser-Login wurde nicht abgeschlossen. Dem Nutzer das sagen, den Login im Browser abschließen und Claude neu starten lassen. Hier stoppen.
    - Fehler mit 401 oder 403: Der Nutzer ist angemeldet, hat aber keine Berechtigung. Die erforderliche Rolle in Keycloak prüfen lassen. Hier stoppen.
 2. **Stand berichten.** Anzahl der Mandanten und ein Beispiel in zwei Zeilen.
 3. **Weiter.** Fragen, was geprüft werden soll.
 
 ## Einstellungen
 
-Adresse des Servers (endet auf `/mcp`) und Client-ID stehen fest in der `.mcp.json` des Plugins, als Testwerte. Zertifikate: Node nutzt den Zertifikatsspeicher des Rechners nur mit `NODE_USE_SYSTEM_CA=1` (steht in der `.mcp.json`, ab Node 22.15). Das Wurzelzertifikat der internen CA muss im Speicher des Rechners als vertrauenswürdig stehen.
+Adresse des Servers (endet auf `/mcp`) und Client-ID stehen fest in der `.mcp.json` des Plugins, als Testwerte. Zertifikate: Das Plugin setzt `NODE_EXTRA_CA_CERTS` auf das CA-Bündel der Desktop-App (`~/Library/Application Support/Claude/ca-bundle.pem`, nur macOS). Das Wurzelzertifikat der internen CA muss im Systemspeicher des Rechners als vertrauenswürdig stehen. Variablen aus der Shell erreichen den Plugin-Server nicht.
 
 ## Regeln
 

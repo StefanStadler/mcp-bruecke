@@ -15,7 +15,7 @@ Claude Code:
 /plugin install bruecke@mcp-bruecke
 ```
 
-Voraussetzungen: Node 22.15 oder neuer (liefert `npx` und kennt `NODE_USE_SYSTEM_CA`). Beim ersten Start lädt `npx` das Paket `mcp-remote` aus der npm-Registry.
+Voraussetzungen: macOS, Node 20 oder neuer (liefert `npx`), Claude Desktop. Beim ersten Start lädt `npx` das Paket `mcp-remote` aus der npm-Registry.
 
 ## Einstellungen
 
@@ -23,12 +23,17 @@ Adresse und Client-ID stehen fest in [`plugins/bruecke/.mcp.json`](plugins/bruec
 
 | Stelle | Bedeutung | Testwert |
 | --- | --- | --- |
-| drittes Argument | https-Adresse des Servers, endet auf `/mcp` | `https://mcp.localhost/mcp` |
-| `client_id` im letzten Argument | Client-ID in Keycloak | `claude-desktop` |
+| Adresse hinter `mcp-remote@0.15.2` | https-Adresse des Servers, endet auf `/mcp` | `https://mcp.localhost/mcp` |
+| `client_id` am Ende | Client-ID in Keycloak | `claude-desktop` |
 
-Zertifikate: Node nutzt standardmäßig nicht den Zertifikatsspeicher des Betriebssystems. Die Variable `NODE_USE_SYSTEM_CA=1` schaltet das ein (ab Node 22.15 oder 24, bei älteren Versionen ohne Wirkung). Die Wurzelzertifikate einer internen CA müssen dann im Zertifikatsspeicher des Rechners als vertrauenswürdig stehen.
+## Zertifikate
 
-Es gibt bewusst keine Skript-Datei und keine Variablen im Plugin: In unseren Tests schlug das Synchronisieren in der Claude-Desktop-App fehl, sobald das Plugin eine JavaScript-Datei enthielt, und ob die App Variablen in `.mcp.json` auflöst, ist nicht belegt.
+Node nutzt den Zertifikatsspeicher des Betriebssystems nicht von selbst. Auch `NODE_USE_SYSTEM_CA=1` und `--use-system-ca` halfen in unseren Tests auf macOS (Node 26) nicht. Das Plugin setzt deshalb `NODE_EXTRA_CA_CERTS` auf das CA-Bündel, das die Claude-Desktop-App selbst aus dem Systemspeicher schreibt (`~/Library/Application Support/Claude/ca-bundle.pem`). Die Wurzelzertifikate einer internen CA müssen dafür im Systemspeicher als vertrauenswürdig stehen. Dass die App dieses Bündel schreibt, haben wir nur in ihrem Log gesehen, es ist nicht dokumentiert und kann sich ändern. Der Pfad gilt nur für macOS.
+
+## Hinweise
+
+- Die App gibt Umgebungsvariablen aus der Shell oder aus `launchctl` nicht an Plugin-Server weiter. Der Server bekommt nur `PATH`, `HOME` und das, was in `.mcp.json` steht.
+- Es gibt bewusst keine Skript-Datei im Plugin: In unseren Tests schlug das Synchronisieren in der Claude-Desktop-App fehl, sobald das Plugin eine JavaScript-Datei enthielt. Ob die App Variablen in `.mcp.json` auflöst, ist nicht belegt, deshalb steht alles fest in der Datei.
 
 ## Lizenz
 

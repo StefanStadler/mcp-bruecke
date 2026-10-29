@@ -1,17 +1,11 @@
 {
   "mcpServers": {
     "intranet": {
-      "command": "npx",
+      "command": "/bin/sh",
       "args": [
-        "-y",
-        "mcp-remote@0.15.2",
-        "https://mcp.localhost/mcp",
-        "--static-oauth-client-info",
-        "{\"client_id\":\"claude-desktop\"}"
-      ],
-      "env": {
-        "NODE_USE_SYSTEM_CA": "1"
-      }
+        "-c",
+        "export NODE_EXTRA_CA_CERTS=\"$HOME/Library/Application Support/Claude/ca-bundle.pem\"; exec npx -y mcp-remote@0.15.2 https://mcp.localhost/mcp --static-oauth-client-info '{\"client_id\":\"claude-desktop\"}'"
+      ]
     }
   }
 }
