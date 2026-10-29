@@ -31,4 +31,4 @@ Die Standardwerte gehören zu einer lokalen Testumgebung und müssen angepasst w
 
 ## Lizenz
 
-Alle Rechte vorbehalten.
+Alle Rechte vorbehalten, siehe [LICENSE](LICENSE).
