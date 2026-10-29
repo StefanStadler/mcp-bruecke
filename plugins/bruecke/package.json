@@ -1,9 +1,0 @@
-{
-  "name": "bruecke",
-  "version": "0.1.0",
-  "private": true,
-  "description": "Plugin: lokale Brücke (mcp-remote) zum MCP-Server",
-  "license": "UNLICENSED",
-  "engines": { "node": ">=20" },
-  "dependencies": { "mcp-remote": "0.15.2" }
-}
