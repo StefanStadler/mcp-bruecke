@@ -1,0 +1,13 @@
+{
+  "name": "bruecke",
+  "version": "0.1.0",
+  "description": "Lokale Brücke zum zentralen MCP-Server im eigenen Netz. Anmeldung über Keycloak im Browser, die Brücke (mcp-remote) läuft auf dem Rechner des Nutzers.",
+  "author": { "name": "Stefan Stadler" },
+  "keywords": ["buchhaltung", "mcp", "oauth", "keycloak"],
+  "mcpServers": {
+    "intranet": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/bin/bridge.mjs"]
+    }
+  }
+}

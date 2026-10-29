@@ -1,0 +1,14 @@
+{
+  "name": "mcp-bruecke",
+  "owner": { "name": "Stefan Stadler" },
+  "metadata": { "description": "Brücke zum zentralen MCP-Server im eigenen Netz" },
+  "plugins": [
+    {
+      "name": "bruecke",
+      "source": "./plugins/bruecke",
+      "description": "Lokale Brücke zum zentralen MCP-Server im eigenen Netz (mcp-remote), Anmeldung über Keycloak im Browser.",
+      "version": "0.1.0",
+      "keywords": ["buchhaltung", "mcp", "oauth", "keycloak"]
+    }
+  ]
+}
