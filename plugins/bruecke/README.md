@@ -1,6 +1,6 @@
 # Plugin: bruecke
 
-Startet auf dem Rechner des Nutzers eine lokale Brücke ([`mcp-remote`](https://www.npmjs.com/package/mcp-remote)) zu einem zentralen MCP-Server im eigenen Netz. Die Anmeldung läuft über Keycloak im Browser. Filter, Protokoll und Datenzugang liegen im Server, nicht auf dem Rechner.
+Startet auf dem Rechner des Nutzers per `npx` eine lokale Brücke ([`mcp-remote`](https://www.npmjs.com/package/mcp-remote)) zu einem zentralen MCP-Server im eigenen Netz. Die Anmeldung läuft über Keycloak im Browser. Filter, Protokoll und Datenzugang liegen im Server, nicht auf dem Rechner.
 
 ## Skills
 

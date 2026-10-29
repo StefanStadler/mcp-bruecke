@@ -1,8 +1,17 @@
 {
   "mcpServers": {
     "intranet": {
-      "command": "node",
-      "args": ["${CLAUDE_PLUGIN_ROOT}/bin/bridge.mjs"]
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@0.15.2",
+        "${MCP_URL:-https://mcp.localhost/mcp}",
+        "--static-oauth-client-info",
+        "{\"client_id\":\"${OAUTH_CLIENT_ID:-claude-desktop}\"}"
+      ],
+      "env": {
+        "NODE_EXTRA_CA_CERTS": "${CA_CERT:-}"
+      }
     }
   }
 }
