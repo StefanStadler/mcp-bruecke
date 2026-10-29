@@ -10,14 +10,14 @@ Das Plugin startet auf diesem Rechner per `npx` eine Brücke (`mcp-remote`). Sie
 ## Ablauf
 
 1. **Verbindung prüfen.** `list_connect_clients` mit `limit` 3 aufrufen.
-   - Werkzeug nicht vorhanden: Die Brücke startet nicht oder die Anmeldung steht noch aus. Mögliche Gründe: Node 20 oder neuer (mit `npx`) fehlt, `npx` kommt beim ersten Start nicht an die npm-Registry, das Zertifikat der internen CA wird nicht erkannt oder der Browser-Login wurde nicht abgeschlossen. Dem Nutzer das sagen, den Login im Browser abschließen und Claude neu starten lassen. Hier stoppen.
+   - Werkzeug nicht vorhanden: Die Brücke startet nicht oder die Anmeldung steht noch aus. Mögliche Gründe: Node 22.15 oder neuer (mit `npx`) fehlt, `npx` kommt beim ersten Start nicht an die npm-Registry, das Zertifikat der internen CA ist im Zertifikatsspeicher nicht vertrauenswürdig oder Node ist zu alt, um ihn zu nutzen oder der Browser-Login wurde nicht abgeschlossen. Dem Nutzer das sagen, den Login im Browser abschließen und Claude neu starten lassen. Hier stoppen.
    - Fehler mit 401 oder 403: Der Nutzer ist angemeldet, hat aber keine Berechtigung. Die erforderliche Rolle in Keycloak prüfen lassen. Hier stoppen.
 2. **Stand berichten.** Anzahl der Mandanten und ein Beispiel in zwei Zeilen.
 3. **Weiter.** Fragen, was geprüft werden soll.
 
 ## Einstellungen
 
-Umgebungsvariablen `MCP_URL` (https-Adresse des Servers, endet auf `/mcp`), `OAUTH_CLIENT_ID` und `CA_CERT` (Pfad zum Zertifikat der internen CA). Sind sie nicht gesetzt, gelten die Testwerte aus der `.mcp.json` des Plugins. Programme mit Oberfläche sehen Variablen aus der Shell oft nicht, dann stehen die Werte fest in der `.mcp.json`.
+Adresse des Servers (endet auf `/mcp`) und Client-ID stehen fest in der `.mcp.json` des Plugins, als Testwerte. Zertifikate: Node nutzt den Zertifikatsspeicher des Rechners nur mit `NODE_USE_SYSTEM_CA=1` (steht in der `.mcp.json`, ab Node 22.15). Das Wurzelzertifikat der internen CA muss im Speicher des Rechners als vertrauenswürdig stehen.
 
 ## Regeln
 

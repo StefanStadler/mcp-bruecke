@@ -15,21 +15,20 @@ Claude Code:
 /plugin install bruecke@mcp-bruecke
 ```
 
-Voraussetzungen: Node 20 oder neuer (liefert `npx`). Beim ersten Start lädt `npx` das Paket `mcp-remote` aus der npm-Registry.
+Voraussetzungen: Node 22.15 oder neuer (liefert `npx` und kennt `NODE_USE_SYSTEM_CA`). Beim ersten Start lädt `npx` das Paket `mcp-remote` aus der npm-Registry.
 
 ## Einstellungen
 
-Die Brücke liest drei Umgebungsvariablen. Sind sie nicht gesetzt, gelten die Standardwerte:
+Adresse und Client-ID stehen fest in [`plugins/bruecke/.mcp.json`](plugins/bruecke/.mcp.json) und gehören zu einer lokalen Testumgebung. Für den eigenen Einsatz die Datei anpassen (eigener Fork des Marketplace):
 
-| Name | Bedeutung | Standard |
+| Stelle | Bedeutung | Testwert |
 | --- | --- | --- |
-| `MCP_URL` | https-Adresse des Servers, endet auf `/mcp` | `https://mcp.localhost/mcp` |
-| `OAUTH_CLIENT_ID` | Client-ID in Keycloak | `claude-desktop` |
-| `CA_CERT` | Pfad zum Zertifikat der internen CA, falls nötig | leer |
+| drittes Argument | https-Adresse des Servers, endet auf `/mcp` | `https://mcp.localhost/mcp` |
+| `client_id` im letzten Argument | Client-ID in Keycloak | `claude-desktop` |
 
-Die Standardwerte gehören zu einer lokalen Testumgebung und müssen angepasst werden. Programme mit Oberfläche sehen Variablen aus der Shell oft nicht (macOS). Dann gehören die Werte fest in die Datei `plugins/bruecke/.mcp.json` des eigenen Marketplace-Forks.
+Zertifikate: Node nutzt standardmäßig nicht den Zertifikatsspeicher des Betriebssystems. Die Variable `NODE_USE_SYSTEM_CA=1` schaltet das ein (ab Node 22.15 oder 24, bei älteren Versionen ohne Wirkung). Die Wurzelzertifikate einer internen CA müssen dann im Zertifikatsspeicher des Rechners als vertrauenswürdig stehen.
 
-Es gibt bewusst keine Skript-Datei im Plugin: In unseren Tests schlug das Synchronisieren in der Claude-Desktop-App fehl, sobald das Plugin eine JavaScript-Datei enthielt.
+Es gibt bewusst keine Skript-Datei und keine Variablen im Plugin: In unseren Tests schlug das Synchronisieren in der Claude-Desktop-App fehl, sobald das Plugin eine JavaScript-Datei enthielt, und ob die App Variablen in `.mcp.json` auflöst, ist nicht belegt.
 
 ## Lizenz
 

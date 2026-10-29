@@ -5,12 +5,12 @@
       "args": [
         "-y",
         "mcp-remote@0.15.2",
-        "${MCP_URL:-https://mcp.localhost/mcp}",
+        "https://mcp.localhost/mcp",
         "--static-oauth-client-info",
-        "{\"client_id\":\"${OAUTH_CLIENT_ID:-claude-desktop}\"}"
+        "{\"client_id\":\"claude-desktop\"}"
       ],
       "env": {
-        "NODE_EXTRA_CA_CERTS": "${CA_CERT:-}"
+        "NODE_USE_SYSTEM_CA": "1"
       }
     }
   }
